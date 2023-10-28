@@ -1,6 +1,9 @@
 ---
 // https://github.com/fontsource/font-files/tree/3ef0dc8e3b625831a3ce7d586194c718491b7c6f/fonts/google/jetbrains-mono
 import "@fontsource/jetbrains-mono";
+
+import { SITE_NAME } from '~/src/config';
+
 interface Props {
 	title: string;
 }
@@ -16,7 +19,7 @@ const { title } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>{title} | { SITE_NAME }</title>
 	</head>
 	<body>
 		<main class="max-w-5xl mx-auto py-12 px-6">

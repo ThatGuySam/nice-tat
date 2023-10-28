@@ -80,9 +80,7 @@ These are the options you can use to configure each page.
 
 ## 🌍 Site Wide Options
 
-You can customize the site name as well as other options for the whole site in the astro.config.mjs file
-
-Astro Config Docs
+You can customize the site name as well as other options for the whole site in src/config.ts
 
 
 ## ❓ Why not add X, Y, and Z?
