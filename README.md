@@ -9,7 +9,7 @@ Gif Demo
 
 Watch Setup Video
 
-View Demo
+[View Demo](https://nice-tat.netlify.app/)
 
 Deploy to Netlify
 Deploy to Vercel
