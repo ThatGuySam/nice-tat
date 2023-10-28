@@ -5,7 +5,7 @@ import "@fontsource/jetbrains-mono/500.css";
 import { fade, ViewTransitions } from 'astro:transitions'
 
 
-import { SITE_NAME } from '../../src/config'
+import { SITE_NAME, DESCRIPTION } from '../../src/config'
 
 interface Props {
 	title: string;
@@ -24,7 +24,7 @@ const isHome = Astro.url.pathname === '/'
 >
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content={ DESCRIPTION } />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
