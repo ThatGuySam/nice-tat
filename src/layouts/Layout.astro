@@ -32,8 +32,8 @@ const isHome = Astro.url.pathname === '/'
 
 		<ViewTransitions />
 	</head>
-	<body>
-		<div class="max-w-5xl mx-auto space-y-4 py-12 px-10">
+	<body class="text-gray-500 dark:text-gray-100">
+		<div class="max-w-5xl mx-auto space-y-4 py-16 px-14">
 			<main 
 				class="max-w-xl"
 			>
@@ -66,7 +66,13 @@ const isHome = Astro.url.pathname === '/'
 		line-height: 1.2rem;
 		background: #13151a;
 		background-size: 224px;
-		color: #fff;
+	}
+
+	/* Light mode */
+	@media (prefers-color-scheme: light) {
+		html {
+			background: #fff;
+		}
 	}
 	code {
 		font-family:
