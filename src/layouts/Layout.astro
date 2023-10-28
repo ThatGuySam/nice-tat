@@ -11,9 +11,15 @@ interface Props {
 	title: string;
 }
 
-const { title } = Astro.props;
+// @ts-ignore - TODO figure otu type safety on this
+const { frontmatter } = Astro.props
 
 const isHome = Astro.url.pathname === '/'
+
+const pageTitle = [
+	frontmatter.title ? frontmatter.title : undefined,
+	isHome ? SITE_NAME : undefined,
+].filter(Boolean).join(' | ')
 
 ---
 
@@ -28,7 +34,7 @@ const isHome = Astro.url.pathname === '/'
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title} | { SITE_NAME }</title>
+		<title>{ pageTitle }</title>
 
 		<ViewTransitions />
 	</head>
