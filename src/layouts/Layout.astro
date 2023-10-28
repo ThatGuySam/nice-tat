@@ -10,6 +10,9 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+const isHome = Astro.url.pathname === '/'
+
 ---
 
 <!doctype html>
@@ -23,9 +26,20 @@ const { title } = Astro.props;
 		<title>{title} | { SITE_NAME }</title>
 	</head>
 	<body>
-		<main class="max-w-5xl mx-auto py-12 px-6">
-			<slot />
-		</main>
+		<div class="max-w-5xl mx-auto space-y-4 py-12 px-10">
+			<main 
+				class=""
+				transition:animate="fade"
+			>
+				<slot />
+			</main>
+
+			<footer>
+				{ !isHome && (
+					<a href="/">home</a>
+				)}
+			</footer>
+		</div>
 	</body>
 </html>
 <style is:global>
