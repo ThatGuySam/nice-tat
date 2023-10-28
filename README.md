@@ -51,32 +51,6 @@ To add a new page simply create a new Markdown file in the /src/pages directory,
 You can also copy and paste an existing markdown file. 
 
 
-
-## ⚙️ Page Options
-
-These are the options you can use to configure each page. 
-
-- inNav
-    - Whether or not the page is shown in navigation. 
-    - Example - inNav: false
-    - Defaults to true
-- redirect
-    - The link the page will go to instead of
-    - Example - redirect: https://www.youtube.com/caseyneistat
-    - Defaults to nothing, the content will be shown when page is visited. 
-- content
-    - The content to be shown on your page when you don't want it to redirect somewhere else. Supports Markdown. 
-    - See Markdown Example - https://dillinger.io/
-- order
-    - The order that your page will show up in navigation. 
-    - Example - order: -1
-    - Defaults to 0
-- title
-    - The title as presented in Browser Tabs and when your page is shared on Social Media. 
-    - Example - title: "Contact"
-    - Defaults to the file name of the page. 
-
-
 ## 🌍 Site Wide Options
 
 You can customize the site name as well as other options for the whole site in src/config.ts
