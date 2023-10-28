@@ -4,7 +4,7 @@ Astro Site Template inspired by Casey Neistat’s ultra minimal personal site.
 
 Great for a LinkInBio type site or just a placeholder while you work on getting your personal site right for the next 35 years. 
 
-![Screen Recording 2023-10-28 at 4 57 43 AM](https://github.com/ThatGuySam/nice-tat/assets/2830379/d1d4c072-a4ed-4bd6-a3bc-6144c9b113cb)
+![Screen Recording 2023-10-28 at 10 23 32 AM](https://github.com/ThatGuySam/nice-tat/assets/2830379/5cb4215c-976c-4d58-bb33-7ef36f24ffe3)
 
 [Watch Setup Video](https://www.youtube.com/watch?v=sEyHnHjhlr4)
 
