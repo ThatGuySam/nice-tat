@@ -6,6 +6,8 @@ title: Nice Tat Astro Template
 
 # Nice Tat Astro Template
 
+[using this template](/how-to-use)
+
 [youtube](https://www.youtube.com/watch?v=sEyHnHjhlr4)
 
 [instagram](https://www.instagram.com/caseyneistat/)
