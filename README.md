@@ -65,13 +65,11 @@ If you really want to extend the site the Astro Docs should get you pretty far: 
 
 ## ❓ Additional questions
 
-You can ask the [ChatGPT Bot](https://chat.openai.com/share/4cb54749-4580-4d18-9be5-89265ef9f33d) for this project or or open a new Issue [here](https://github.com/ThatGuySam/nice-tat/issues)
+You can ask the [ChatGPT Bot](https://chat.openai/share/4cb54749-4580-4d18-9be5-89265ef9f33d) for this project or or open a new Issue [here](https://github/ThatGuySam/nice-tat/issues)
 
 
 ## 🙏 Credits
-Inspired by [Casey Neistat's Website](https://www.caseyneistat.com/).
-
-
+Inspired by [Casey Neistat's Website](https://web.archive.org/web/20240229155932/https://www.caseyneistat.com/).
 
 
 ## 👀 Want to learn more about Astro?
