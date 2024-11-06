@@ -10,6 +10,8 @@ title: Nice Tat Astro Template
 
 [youtube](https://www.youtube.com/watch?v=sEyHnHjhlr4)
 
+[github](https://github.com/ThatGuySam/nice-tat)
+
 [instagram](https://www.instagram.com/caseyneistat/)
 
 [onlyfans](/onlyfans)
