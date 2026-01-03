@@ -7,9 +7,9 @@
     "directory": "./dist",
     // Only run the worker for paths we actually need it for
     // so that we keep our static assets fast
-    "run_worker_first": [
-      "/worker-disabled-for-now"
-    ],
+    // "run_worker_first": [
+    //   "/worker-disabled-for-now"
+    // ],
     // Use "404-page" once you add src/pages/404.astro
     "not_found_handling": "none"
   }
