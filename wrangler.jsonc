@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nice-tat",
+  // Update to today's date
+  "compatibility_date": "2026-01-03",
+  "assets": {
+    "directory": "./dist",
+    // Only run the worker for paths we actually need it for
+    // so that we keep our static assets fast
+    "run_worker_first": [
+      "/worker-disabled-for-now"
+    ],
+    // Use "404-page" once you add src/pages/404.astro
+    "not_found_handling": "none"
+  }
+}
