@@ -5,6 +5,7 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'static',
   // Required for sitemap, canonical URLs, OG images
   site: 'https://nice-tat.pages.dev',
   integrations: [
