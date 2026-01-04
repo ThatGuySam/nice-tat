@@ -78,9 +78,14 @@ export function beastiesIntegration(
           pruneSource: false,
           // Merge inlined styles into single tag
           mergeStylesheets: true,
-          // Always include Astro's route announcer
-          // (screen-reader-only element for View Transitions)
-          allowRules: ['.astro-route-announcer'],
+          // Always include these rules in critical CSS:
+          // - Route announcer (screen-reader-only for View Transitions)
+          // - Body font (Tailwind preflight override)
+          allowRules: [
+            '.astro-route-announcer',
+            'body',
+            'html',
+          ],
         });
 
         const htmlFiles = await findHtmlFiles(distPath);

@@ -155,6 +155,11 @@ const pageDescription = frontmatter.description
 		background-size: 224px;
 	}
 
+	/* Ensure mono font applies to body (Tailwind reset override) */
+	body {
+		font-family: "JetBrains Mono", system-ui, sans-serif;
+	}
+
 	/* Light mode */
 	@media (prefers-color-scheme: light) {
 		html {
