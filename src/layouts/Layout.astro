@@ -112,11 +112,11 @@ const pageDescription = frontmatter.description
 		<ClientRouter />
 	</head>
 	<body class={`text-gray-500 dark:text-gray-100 ${ isHome ? 'is-home' : '' }`}>
-		<div class="max-w-5xl mx-auto space-y-4 py-16 px-14">
-			<main 
-				class="max-w-xl"
-				transition:animate={fade({ duration: '350ms' })}
-			>
+		<div 
+			class="max-w-5xl mx-auto space-y-4 py-16 px-14"
+			transition:animate={fade({ duration: '350ms' })}
+		>
+			<main class="max-w-xl">
 				<slot />
 			</main>
 
