@@ -190,4 +190,13 @@ const pageDescription = frontmatter.description
 	body:not(.is-home) a {
 		text-decoration: underline;
 	}
+
+	/* 
+	 * Disable default root view transition to prevent
+	 * page title/content flashing during navigation
+	 */
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+	}
 </style>
