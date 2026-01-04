@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "beasties": "^0.3.5",
-    "vite-plugin-beasties": "^0.3.5",
     "wrangler": "^4.54.0"
   }
 }

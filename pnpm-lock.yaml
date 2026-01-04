@@ -49,9 +49,6 @@ devDependencies:
   beasties:
     specifier: ^0.3.5
     version: 0.3.5
-  vite-plugin-beasties:
-    specifier: ^0.3.5
-    version: 0.3.5
   wrangler:
     specifier: ^4.54.0
     version: 4.54.0
@@ -4608,13 +4605,6 @@ packages:
       '@types/unist': 3.0.1
       vfile-message: 4.0.2
     dev: false
-
-  /vite-plugin-beasties@0.3.5:
-    resolution: {integrity: sha512-C4o1BflJDAD1MZvOpzs8WiBjZWjQpmhRe2DeEYok/oFeiIJnDm/husr23CXVEMMkSAVmiPYC38sp4BYVKvj2zA==}
-    engines: {node: '>=14.0.0'}
-    dependencies:
-      beasties: 0.3.5
-    dev: true
 
   /vite@6.4.1:
     resolution: {integrity: sha512-+Oxm7q9hDoLMyJOYfUYBuHQo+dkAloi33apOPP56pzj+vsdJDzr+j1NISE5pyaAuKL4A3UD34qd0lx5+kfKp2g==}
