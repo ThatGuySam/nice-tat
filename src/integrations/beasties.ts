@@ -78,6 +78,9 @@ export function beastiesIntegration(
           pruneSource: false,
           // Merge inlined styles into single tag
           mergeStylesheets: true,
+          // Always include Astro's route announcer
+          // (screen-reader-only element for View Transitions)
+          allowRules: ['.astro-route-announcer'],
         });
 
         const htmlFiles = await findHtmlFiles(distPath);
