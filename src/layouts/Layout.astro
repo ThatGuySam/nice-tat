@@ -47,10 +47,7 @@ const pageDescription = frontmatter.description
 ---
 
 <!doctype html>
-<html 
-	lang="en"
-	transition:animate={fade({ duration: '350ms' })}
->
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -118,6 +115,7 @@ const pageDescription = frontmatter.description
 		<div class="max-w-5xl mx-auto space-y-4 py-16 px-14">
 			<main 
 				class="max-w-xl"
+				transition:animate={fade({ duration: '350ms' })}
 			>
 				<slot />
 			</main>
