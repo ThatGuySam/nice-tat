@@ -1,0 +1,80 @@
+---
+/**
+ * Summary.astro
+ * 
+ * Key takeaways block for article introductions.
+ * NNG research shows summaries help readers:
+ * - Quickly assess article relevance
+ * - Get value even if they don't read fully
+ * - Orient themselves before diving in
+ * 
+ * @see https://www.nngroup.com/articles/
+ *      formatting-long-form-content/
+ * 
+ * @example
+ * <Summary title="Key Takeaways">
+ *   - Point one about the topic
+ *   - Point two with important insight
+ *   - Point three for actionable advice
+ * </Summary>
+ */
+
+interface Props {
+  /** Heading for the summary block */
+  title?: string;
+}
+
+const { title = 'Key Takeaways' } = Astro.props;
+---
+
+<aside
+  class="
+    summary
+    not-prose
+    my-8 p-6
+    bg-gradient-to-br
+      from-purple-500/5 to-blue-500/5
+    border border-purple-500/20
+    rounded-xl
+  "
+  role="region"
+  aria-label={title}
+>
+  <!-- Header with icon -->
+  <div class="flex items-center gap-2 mb-4">
+    <span class="text-xl" aria-hidden="true">📋</span>
+    <h2 class="
+      text-lg font-bold
+      text-gray-900 dark:text-white
+      m-0
+    ">
+      {title}
+    </h2>
+  </div>
+
+  <!-- 
+    Content slot - expects bullet points
+    Styled to be visually distinct from body 
+  -->
+  <div class="
+    text-gray-700 dark:text-gray-200
+    text-base leading-relaxed
+    
+    [&>ul]:list-none [&>ul]:p-0 [&>ul]:m-0
+    [&>ul>li]:relative [&>ul>li]:pl-6
+    [&>ul>li]:my-2
+    [&>ul>li]:before:content-['✓']
+    [&>ul>li]:before:absolute
+    [&>ul>li]:before:left-0
+    [&>ul>li]:before:text-purple-500
+    [&>ul>li]:before:font-bold
+    
+    [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:m-0
+    [&>ol>li]:my-2 [&>ol>li]:pl-1
+    
+    [&>p]:my-2 [&>p:first-child]:mt-0
+    [&>p:last-child]:mb-0
+  ">
+    <slot />
+  </div>
+</aside>

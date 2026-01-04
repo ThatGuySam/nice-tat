@@ -1,0 +1,134 @@
+---
+/**
+ * TableOfContents.astro
+ * 
+ * In-page navigation for long articles.
+ * NNG recommends TOC for 1000+ word articles
+ * to help readers:
+ * - Scan article structure quickly
+ * - Jump to relevant sections
+ * - Orient themselves in long content
+ * 
+ * Uses smooth scrolling with scroll-margin
+ * for headings (defined in BlogLayout).
+ * 
+ * @see https://www.nngroup.com/articles/
+ *      formatting-long-form-content/
+ * 
+ * @example
+ * <TableOfContents
+ *   items={[
+ *     { label: 'Introduction', href: '#intro' },
+ *     { label: 'Getting Started', href: '#start' },
+ *     { 
+ *       label: 'Advanced Topics', 
+ *       href: '#advanced',
+ *       children: [
+ *         { label: 'Topic A', href: '#topic-a' },
+ *         { label: 'Topic B', href: '#topic-b' },
+ *       ]
+ *     },
+ *   ]}
+ * />
+ */
+
+interface TocItem {
+  /** Display text for the link */
+  label: string;
+  /** Anchor href (e.g., '#section-id') */
+  href: string;
+  /** Nested items (for h3s under h2s) */
+  children?: TocItem[];
+}
+
+interface Props {
+  /** Array of TOC items */
+  items: TocItem[];
+  /** Optional title override */
+  title?: string;
+}
+
+const { items, title = 'In This Article' } = Astro.props;
+---
+
+<nav
+  class="
+    toc
+    not-prose
+    my-8 p-5
+    bg-gray-100 dark:bg-gray-800/50
+    rounded-xl
+  "
+  aria-label="Table of contents"
+>
+  <!-- Header -->
+  <p class="
+    text-sm font-semibold uppercase tracking-wide
+    text-gray-500 dark:text-gray-400
+    mb-3
+  ">
+    {title}
+  </p>
+
+  <!-- TOC list -->
+  <ol class="
+    list-none p-0 m-0
+    text-base
+    space-y-2
+  ">
+    {items.map((item, index) => (
+      <li>
+        <a
+          href={item.href}
+          class="
+            flex items-baseline gap-2
+            text-gray-700 dark:text-gray-200
+            hover:text-purple-600 dark:hover:text-purple-400
+            transition-colors
+            no-underline
+          "
+        >
+          <span class="
+            text-xs font-mono
+            text-gray-400 dark:text-gray-500
+          ">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <span class="hover:underline underline-offset-2">
+            {item.label}
+          </span>
+        </a>
+
+        {/* Nested items (h3s) */}
+        {item.children && item.children.length > 0 && (
+          <ol class="
+            list-none p-0 m-0
+            pl-6 mt-2
+            space-y-1
+            border-l-2 border-gray-200
+              dark:border-gray-700
+          ">
+            {item.children.map((child) => (
+              <li>
+                <a
+                  href={child.href}
+                  class="
+                    text-sm
+                    text-gray-600 dark:text-gray-400
+                    hover:text-purple-600
+                      dark:hover:text-purple-400
+                    transition-colors
+                    no-underline hover:underline
+                    underline-offset-2
+                  "
+                >
+                  {child.label}
+                </a>
+              </li>
+            ))}
+          </ol>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

@@ -1,0 +1,113 @@
+---
+/**
+ * Callout.astro
+ * 
+ * Highlighted content block for tips, warnings, notes.
+ * Based on NNG's recommendation for callouts in
+ * long-form content to improve scan-ability.
+ * 
+ * @see https://www.nngroup.com/articles/
+ *      formatting-long-form-content/
+ * 
+ * @example
+ * <Callout type="tip" title="Pro Tip">
+ *   Use callouts sparingly for maximum impact.
+ * </Callout>
+ */
+
+interface Props {
+  /**
+   * Visual style variant
+   * - tip: Helpful suggestions (purple)
+   * - note: Neutral information (blue)
+   * - warning: Cautions (yellow)
+   * - danger: Critical warnings (red)
+   */
+  type?: 'tip' | 'note' | 'warning' | 'danger';
+  /** Optional heading text */
+  title?: string;
+}
+
+const { type = 'note', title } = Astro.props;
+
+// Icon and color mappings per type
+const config = {
+  tip: {
+    icon: '💡',
+    label: 'Tip',
+    border: 'border-purple-500',
+    background: 'bg-purple-500/10',
+    titleColor: 'text-purple-400',
+  },
+  note: {
+    icon: 'ℹ️',
+    label: 'Note',
+    border: 'border-blue-500',
+    background: 'bg-blue-500/10',
+    titleColor: 'text-blue-400',
+  },
+  warning: {
+    icon: '⚠️',
+    label: 'Warning',
+    border: 'border-yellow-500',
+    background: 'bg-yellow-500/10',
+    titleColor: 'text-yellow-400',
+  },
+  danger: {
+    icon: '🚨',
+    label: 'Danger',
+    border: 'border-red-500',
+    background: 'bg-red-500/10',
+    titleColor: 'text-red-400',
+  },
+};
+
+const { icon, label, border, background, titleColor } =
+  config[type];
+
+const displayTitle = title || label;
+---
+
+<aside
+  class:list={[
+    'callout',
+    'not-prose',
+    'my-6 p-4 rounded-lg',
+    'border-l-4',
+    border,
+    background,
+  ]}
+  role="note"
+  aria-label={displayTitle}
+>
+  <div class="flex gap-3">
+    <!-- Icon -->
+    <span class="text-xl flex-shrink-0" aria-hidden="true">
+      {icon}
+    </span>
+    
+    <div class="flex-1 min-w-0">
+      <!-- Title -->
+      <p class:list={[
+        'font-semibold text-sm uppercase tracking-wide',
+        'mb-2',
+        titleColor,
+      ]}>
+        {displayTitle}
+      </p>
+      
+      <!-- Content -->
+      <div class="
+        text-gray-700 dark:text-gray-200
+        text-base leading-relaxed
+        [&>p]:my-2 [&>p:first-child]:mt-0
+        [&>p:last-child]:mb-0
+        [&>ul]:my-2 [&>ul]:pl-4
+        [&>ol]:my-2 [&>ol]:pl-4
+        [&>li]:my-1
+      ">
+        <slot />
+      </div>
+    </div>
+  </div>
+</aside>

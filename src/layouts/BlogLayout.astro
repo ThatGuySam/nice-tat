@@ -1,0 +1,353 @@
+---
+/**
+ * BlogLayout.astro
+ * 
+ * Article layout optimized for readability based on
+ * Nielsen Norman Group UX research:
+ * - 50-75 char line width (max-w-prose = 65ch)
+ * - 18px+ base font for legibility
+ * - Golden ratio line-height (1.625)
+ * - Clear heading hierarchy (layer-cake pattern)
+ * - High contrast text/background
+ * - Clean sans-serif typeface (Inter)
+ * 
+ * @see https://www.nngroup.com/articles/
+ *      legibility-readability-comprehension/
+ */
+
+// Sans-serif for body text (clean, readable)
+import "@fontsource/inter/latin-400.css";
+import "@fontsource/inter/latin-500.css";
+import "@fontsource/inter/latin-600.css";
+import "@fontsource/inter/latin-700.css";
+
+// Monospace for headings and code blocks
+import "@fontsource/jetbrains-mono/latin-400.css";
+import "@fontsource/jetbrains-mono/latin-600.css";
+import "@fontsource/jetbrains-mono/latin-700.css";
+
+import { fade, ClientRouter } from 'astro:transitions'
+import { SEO } from 'astro-seo';
+import { Schema } from 'astro-seo-schema';
+
+import { SITE_NAME, DESCRIPTION } from '../config'
+
+interface Props {
+  title: string;
+  description?: string;
+  publishDate?: string;
+  author?: string;
+  image?: string;
+}
+
+// @ts-expect-error - Astro injects frontmatter at runtime
+const { frontmatter } = Astro.props
+
+const pageTitle = frontmatter.title || 'Untitled'
+const fullTitle = `${pageTitle} | ${SITE_NAME}`
+
+// SEO: Canonical URL
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site
+).href;
+
+// SEO: Dynamic OG image path from page URL
+const pagePath = Astro.url.pathname
+  .replace(/^\//, '')
+  .replace(/\/$/, '')
+  || 'index';
+const ogImageURL = frontmatter.image
+  || new URL(`/og/${pagePath}.png`, Astro.site).href;
+
+// SEO: Page description (use frontmatter or default)
+const pageDescription = frontmatter.description
+  || DESCRIPTION;
+
+// Article metadata
+const publishDate = frontmatter.publishDate
+  ? new Date(frontmatter.publishDate).toISOString()
+  : undefined;
+const author = frontmatter.author || SITE_NAME;
+
+// Estimated reading time (rough: 200 words/minute)
+const readingTime = frontmatter.readingTime;
+---
+
+<!doctype html>
+<html lang="en" class="blog-layout">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO: title, description, canonical, OG -->
+    <SEO
+      title={fullTitle}
+      description={pageDescription}
+      canonical={canonicalURL}
+      openGraph={{
+        basic: {
+          title: fullTitle,
+          type: "article",
+          image: ogImageURL,
+          url: canonicalURL,
+        },
+        optional: {
+          siteName: SITE_NAME,
+          description: pageDescription,
+        },
+        article: publishDate ? {
+          publishedTime: publishDate,
+          authors: [author],
+        } : undefined,
+        image: {
+          alt: pageTitle,
+          width: 1200,
+          height: 630,
+        },
+      }}
+      twitter={{
+        card: "summary_large_image",
+        title: fullTitle,
+        description: pageDescription,
+        image: ogImageURL,
+        imageAlt: pageTitle,
+      }}
+    />
+
+    <!-- JSON-LD Structured Data for Articles -->
+    <Schema
+      item={{
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: pageTitle,
+        description: pageDescription,
+        url: canonicalURL,
+        image: ogImageURL,
+        datePublished: publishDate,
+        author: {
+          "@type": "Person",
+          name: author,
+        },
+      }}
+    />
+
+    <!-- Sitemap -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- RSS Feed -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={SITE_NAME}
+      href="/rss.xml"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <ClientRouter />
+  </head>
+  <body class="
+    bg-white dark:bg-[#13151a]
+    text-gray-700 dark:text-gray-100
+    antialiased
+  ">
+    <div
+      class="
+        min-h-screen
+        px-6 sm:px-8 py-12 sm:py-16
+      "
+      transition:animate={fade({ duration: '350ms' })}
+    >
+      <!-- Article container with optimal width -->
+      <article class="
+        mx-auto
+        max-w-prose
+        prose dark:prose-invert
+        prose-lg
+      ">
+        <!-- Article header -->
+        <header class="mb-10 not-prose">
+          <!-- Back link -->
+          <nav class="mb-8">
+            <a
+              href="/"
+              class="
+                text-sm text-gray-500 dark:text-gray-400
+                hover:text-gray-700 dark:hover:text-gray-200
+                transition-colors
+              "
+            >
+              ← Back to home
+            </a>
+          </nav>
+
+          <!-- Title (h1 style from typography) -->
+          <h1 class="
+            text-3xl sm:text-4xl
+            font-bold
+            text-gray-900 dark:text-white
+            leading-tight
+            mb-4
+          ">
+            {pageTitle}
+          </h1>
+
+          <!-- Article meta (date, reading time) -->
+          {(publishDate || readingTime) && (
+            <div class="
+              flex flex-wrap gap-3
+              text-sm text-gray-500 dark:text-gray-400
+            ">
+              {publishDate && (
+                <time datetime={publishDate}>
+                  {new Date(publishDate).toLocaleDateString(
+                    'en-US',
+                    {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    }
+                  )}
+                </time>
+              )}
+              {publishDate && readingTime && (
+                <span aria-hidden="true">·</span>
+              )}
+              {readingTime && (
+                <span>{readingTime} min read</span>
+              )}
+            </div>
+          )}
+
+          <!-- Description/subtitle if provided -->
+          {frontmatter.description && (
+            <p class="
+              mt-4 text-lg
+              text-gray-600 dark:text-gray-300
+              leading-relaxed
+            ">
+              {frontmatter.description}
+            </p>
+          )}
+        </header>
+
+        <!-- Article content with prose styling -->
+        <div class="prose-content">
+          <slot />
+        </div>
+      </article>
+
+      <!-- Footer -->
+      <footer class="
+        max-w-prose mx-auto
+        mt-16 pt-8
+        border-t border-gray-200 dark:border-gray-800
+      ">
+        <a
+          href="/"
+          class="
+            text-sm text-gray-500 dark:text-gray-400
+            hover:text-gray-700 dark:hover:text-gray-200
+            transition-colors
+          "
+        >
+          ← Back to home
+        </a>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  /* 
+   * Blog layout typography
+   * Uses Inter for body (clean sans-serif)
+   * JetBrains Mono for code only
+   */
+  .blog-layout {
+    font-family: "Inter", system-ui, sans-serif;
+    /* 
+     * Base font: 18px on desktop for readability
+     * NNG recommends "reasonably large" default
+     */
+    font-size: 18px;
+    line-height: 1.625; /* Golden ratio */
+  }
+
+  /* Responsive font sizing */
+  @media (max-width: 640px) {
+    .blog-layout {
+      font-size: 16px;
+    }
+  }
+
+  /* Larger text on touch devices (tap targets) */
+  @media (hover: none) {
+    .blog-layout {
+      font-size: 18px;
+    }
+  }
+
+  /* Headings use monospace for visual distinction */
+  .blog-layout h1,
+  .blog-layout h2,
+  .blog-layout h3,
+  .blog-layout h4,
+  .blog-layout h5,
+  .blog-layout h6 {
+    font-family: 
+      "JetBrains Mono",
+      Menlo,
+      Monaco,
+      "Courier New",
+      monospace;
+  }
+
+  /* Code blocks use monospace */
+  .blog-layout code,
+  .blog-layout pre {
+    font-family: 
+      "JetBrains Mono",
+      Menlo,
+      Monaco,
+      "Courier New",
+      monospace;
+  }
+
+  /* Inline code styling */
+  .blog-layout :not(pre) > code {
+    background: rgba(136, 58, 234, 0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+  }
+
+  /* 
+   * Disable default root view transition
+   * to prevent flash during navigation
+   */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+
+  /* 
+   * Smooth scroll for in-page links (TOC)
+   * with reduced-motion respect
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    .blog-layout {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Heading anchor links */
+  .blog-layout h2,
+  .blog-layout h3,
+  .blog-layout h4 {
+    scroll-margin-top: 2rem;
+  }
+</style>
