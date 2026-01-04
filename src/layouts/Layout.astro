@@ -2,7 +2,7 @@
 // https://github.com/fontsource/font-files/tree/3ef0dc8e3b625831a3ce7d586194c718491b7c6f/fonts/google/jetbrains-mono
 import "@fontsource/jetbrains-mono/latin-400.css";
 import "@fontsource/jetbrains-mono/latin-500.css";
-import { ClientRouter } from 'astro:transitions'
+import { fade, ClientRouter } from 'astro:transitions'
 
 import { SEO } from 'astro-seo';
 import { Schema } from 'astro-seo-schema';
@@ -116,11 +116,14 @@ const pageDescription = frontmatter.description
 		<ClientRouter />
 	</head>
 	<body class={`text-gray-500 dark:text-gray-100 ${ isHome ? 'is-home' : '' }`}>
-		<!-- Transitions disabled until I can figure out flashing text issue - transition:animate={fade({ duration: '350ms' })} -->
+		
 		<div 
 			class="max-w-5xl mx-auto space-y-4 py-16 px-14"
 		>
-			<main class="max-w-xl">
+			<main 
+			class="max-w-xl"
+			transition:animate={fade({ duration: '350ms' })}
+			>
 				<slot />
 			</main>
 
