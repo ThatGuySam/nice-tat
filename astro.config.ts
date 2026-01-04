@@ -7,7 +7,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   output: 'static',
   // Required for sitemap, canonical URLs, OG images
-  site: 'https://nice-tat.pages.dev',
+  site: 'https://nice-tat.samcarlton.workers.dev',
   integrations: [
     tailwind(),
     sitemap(),
