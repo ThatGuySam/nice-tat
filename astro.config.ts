@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
+import { beastiesIntegration } from './src/integrations/beasties';
 
 // Custom domain - used for production builds
 const DEFAULT_SITE = 'https://nicetat.samcarlton.com';
@@ -60,5 +61,8 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sitemap(),
-  ]
+    // Inline critical CSS, lazy-load the rest
+    // https://github.com/danielroe/beasties
+    beastiesIntegration({ preload: 'swap' }),
+  ],
 });
