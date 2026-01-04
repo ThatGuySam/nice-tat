@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
+import mdx from "@astrojs/mdx";
 import { beastiesIntegration } from './src/integrations/beasties';
 
 // Custom domain - used for production builds
@@ -61,6 +62,8 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sitemap(),
+    // MDX support for blog posts with components
+    mdx(),
     // Inline critical CSS, lazy-load the rest
     // https://github.com/danielroe/beasties
     beastiesIntegration({ preload: 'swap' }),
