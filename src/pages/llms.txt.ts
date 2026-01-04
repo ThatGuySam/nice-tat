@@ -13,7 +13,7 @@ import {
  * Generates llms.txt for AI discoverability.
  * Auto-discovers pages and pulls metadata from config.
  */
-export async function GET(context: APIContext) {
+export async function GET(_context: APIContext) {
   // Auto-discover all markdown pages
   const pages = import.meta.glob('./**/*.md', { eager: true });
 
