@@ -1,0 +1,218 @@
+---
+layout: ../layouts/BlogLayout.astro
+title: "Writing Readable Articles: A UX Guide"
+description: >
+  Learn how to format articles for maximum readability
+  using research-backed typography and layout principles
+  from the Nielsen Norman Group.
+publishDate: 2026-01-03
+author: Nice Tat
+readingTime: 5
+---
+
+import Summary from '../components/Summary.astro'
+import Callout from '../components/Callout.astro'
+import TableOfContents from '../components/TableOfContents.astro'
+
+{/* Key takeaways at the top help readers assess relevance */}
+<Summary>
+- Use 50-75 characters per line for comfortable reading
+- Set body text at 16-18px minimum with 1.6+ line-height
+- Create clear heading hierarchy for easy scanning
+- Add callouts, summaries, and TOC for long content
+- Keep high contrast between text and background
+</Summary>
+
+<TableOfContents
+  items={[
+    { label: 'Why Readability Matters', href: '#why' },
+    { label: 'Typography Fundamentals', href: '#typography' },
+    { label: 'Line Length & Spacing', href: '#spacing' },
+    { label: 'Visual Hierarchy', href: '#hierarchy' },
+    { label: 'Formatting Long Content', href: '#formatting' },
+  ]}
+/>
+
+Good article formatting isn't just about aesthetics—it directly
+impacts whether people **actually read** your content. The Nielsen
+Norman Group has decades of research showing that most users scan
+rather than read, and proper formatting can mean the difference
+between engagement and abandonment.
+
+## Why Readability Matters
+
+Research shows that users spend an average of just 10-20 seconds
+on a page before deciding whether to stay. Poor typography and
+formatting create friction that drives readers away, even when
+the content itself is valuable.
+
+<Callout type="note">
+  **79% of users scan** rather than read word-by-word.
+  Format your content to support this natural behavior.
+</Callout>
+
+The three pillars of readable text are:
+
+1. **Legibility** — Can readers physically see the text?
+2. **Readability** — Can they smoothly read sentences?
+3. **Scan-ability** — Can they navigate and find information?
+
+## Typography Fundamentals
+
+### Font Size
+
+Use a **reasonably large default font size**. NNG recommends at
+least 16px for body text, with 18px being more comfortable for
+long-form reading. This template uses 18px as the base.
+
+<Callout type="tip" title="Accessibility">
+  Always let users change font size through browser settings.
+  Never lock text sizes with `!important` or viewport units
+  that prevent scaling.
+</Callout>
+
+### Font Choice
+
+Use **clean, simple typefaces** for body text. Save decorative
+or display fonts for headings and accents only. This template
+uses:
+
+- **Inter** for body text (clean sans-serif)
+- **JetBrains Mono** for code blocks only
+
+### Contrast
+
+Maintain **high contrast** between text and background. Dark
+text on light backgrounds (or vice versa) with a plain,
+non-busy background.
+
+## Line Length & Spacing
+
+### Optimal Line Width
+
+Keep lines between **50-75 characters** wide. Too-wide lines
+make it difficult to track back to the next line. Too-narrow
+lines disrupt reading flow.
+
+This template uses `max-w-prose` which sets a `65ch` max-width—
+right in the sweet spot.
+
+<Callout type="warning">
+  Full-width text on large screens is a common mistake.
+  A 1920px-wide paragraph is nearly impossible to read
+  comfortably.
+</Callout>
+
+### Line Height
+
+Line height should increase with line length. The golden ratio
+(1.618) provides a good starting point:
+
+```
+16px font × 1.625 = 26px line-height
+18px font × 1.625 = 29px line-height
+```
+
+This template uses `leading-relaxed` (1.625 ratio) for
+comfortable reading.
+
+## Visual Hierarchy
+
+Create a **"layer-cake" pattern** where headings and subheadings
+stand out visually, allowing readers to scan the structure at
+a glance.
+
+### Heading Levels
+
+Each heading level should be visually distinct:
+
+- **H1**: Article title (only one per page)
+- **H2**: Major sections
+- **H3**: Subsections within H2s
+- **H4**: Further breakdown if needed
+
+Never skip heading levels (e.g., H1 → H3). This confuses both
+readers and screen readers.
+
+### Emphasis
+
+Use **bold for keywords** and important phrases that help
+scanners. Use *italics* for emphasis within sentences. But
+use both **sparingly**—if everything is emphasized, nothing is.
+
+## Formatting Long Content
+
+For articles over 1,000 words, NNG recommends these structural
+helpers:
+
+### 1. Summary / Key Takeaways
+
+Place a summary at the top so readers can quickly assess
+relevance. This template provides the `<Summary>` component
+for this purpose.
+
+### 2. Table of Contents
+
+Add navigation for longer pieces. The `<TableOfContents>`
+component creates in-page links to each section.
+
+### 3. Bullet Points
+
+Break information into scannable lists:
+
+- Easier to scan than paragraphs
+- Each point stands alone
+- White space aids comprehension
+
+### 4. Callouts
+
+Use the `<Callout>` component to highlight:
+
+<Callout type="tip">
+  Tips and helpful suggestions
+</Callout>
+
+<Callout type="warning">
+  Warnings and cautions
+</Callout>
+
+<Callout type="danger">
+  Critical information that could cause problems if ignored
+</Callout>
+
+### 5. Code Blocks
+
+For technical content, use syntax-highlighted code blocks:
+
+```javascript
+// Example: calculating reading time
+function calculateReadingTime(text) {
+  const wordsPerMinute = 200;
+  const wordCount = text.split(/\s+/).length;
+  return Math.ceil(wordCount / wordsPerMinute);
+}
+```
+
+### 6. Images & Figures
+
+Use helpful visuals to break up text and illustrate concepts.
+Always include descriptive alt text for accessibility.
+
+---
+
+## Conclusion
+
+Good formatting is invisible when done well—readers simply
+enjoy the content without friction. By following these
+research-backed principles, you create articles that respect
+your readers' time and attention.
+
+**Remember the core principles:**
+
+- Large, legible text (18px+)
+- Comfortable line width (50-75 chars)
+- Clear heading hierarchy
+- Structural helpers for long content
+- High contrast, clean design
+
+Now go write something worth reading! 📝

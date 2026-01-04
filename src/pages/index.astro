@@ -1,0 +1,76 @@
+---
+/**
+ * Home page with automatic article listing.
+ * Articles are MDX files using BlogLayout.
+ */
+import Layout from '../layouts/Layout.astro'
+
+// Glob all MDX pages (blog articles)
+const allPages = await Astro.glob('./*.mdx')
+
+// Filter to only pages using BlogLayout and with
+// required frontmatter
+const articles = allPages
+  .filter((page) => {
+    const layout = page.frontmatter.layout
+    return layout?.includes('BlogLayout')
+  })
+  .map((page) => ({
+    title: page.frontmatter.title,
+    description: page.frontmatter.description,
+    publishDate: page.frontmatter.publishDate,
+    url: page.url,
+  }))
+  // Sort by date, newest first
+  .sort((a, b) => {
+    const dateA = new Date(a.publishDate || 0)
+    const dateB = new Date(b.publishDate || 0)
+    return dateB.getTime() - dateA.getTime()
+  })
+---
+
+<Layout frontmatter={{ title: 'Nice Tat Astro Template' }}>
+  <!-- Markdown Preview - https://dillinger.io/ -->
+
+  <h1>Nice Tat Astro Template</h1>
+
+  <p><a href="/how-to-use">using this template</a></p>
+  <p><a href="https://www.youtube.com/watch?v=sEyHnHjhlr4">youtube</a></p>
+  <p><a href="https://github.com/ThatGuySam/nice-tat">github</a></p>
+  <p><a href="https://www.instagram.com/caseyneistat/">instagram</a></p>
+  <p><a href="/onlyfans">onlyfans</a></p>
+  <p><a href="https://twitter.com/Casey">twitter</a></p>
+  <p><a href="/contact">contact</a></p>
+
+  {/* Article listing */}
+  {articles.length > 0 && (
+    <section class="my-8 pt-6">
+      <h2 class="tracking-wide mb-4">
+        Articles
+      </h2>
+      <ul class="space-y-3">
+        {articles.map((article) => (
+          <li>
+            <a href={article.url} class="block group">
+              <span class="group-hover:underline">
+                {article.title}
+              </span>
+              {article.publishDate && (
+                <span class="
+                  text-gray-500 text-sm ml-2
+                ">
+                  {new Date(article.publishDate)
+                    .toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                    })}
+                </span>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</Layout>
