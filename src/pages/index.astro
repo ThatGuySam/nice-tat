@@ -5,22 +5,45 @@
  */
 import Layout from '../layouts/Layout.astro'
 
-// Glob all MDX pages (blog articles)
-const allPages = await Astro.glob('./*.mdx')
+/**
+ * Article frontmatter shape for MDX pages.
+ */
+interface ArticleFrontmatter {
+  title?: string;
+  description?: string;
+  publishDate?: string;
+  layout?: string;
+}
 
-// Filter to only pages using BlogLayout and with
-// required frontmatter
-const articles = allPages
-  .filter((page) => {
-    const layout = page.frontmatter.layout
+interface ArticleModule {
+  frontmatter: ArticleFrontmatter;
+  url?: string;
+}
+
+// Use import.meta.glob (modern replacement for Astro.glob)
+const mdxModules = import.meta.glob<ArticleModule>(
+  './*.mdx',
+  { eager: true }
+)
+
+// Filter to only pages using BlogLayout
+const articles = Object.entries(mdxModules)
+  .filter(([_, module]) => {
+    const layout = module.frontmatter?.layout
     return layout?.includes('BlogLayout')
   })
-  .map((page) => ({
-    title: page.frontmatter.title,
-    description: page.frontmatter.description,
-    publishDate: page.frontmatter.publishDate,
-    url: page.url,
-  }))
+  .map(([filepath, module]) => {
+    // Convert filepath to URL: ./example-article.mdx -> /example-article
+    const url = filepath
+      .replace('./', '/')
+      .replace('.mdx', '')
+    return {
+      title: module.frontmatter?.title,
+      description: module.frontmatter?.description,
+      publishDate: module.frontmatter?.publishDate,
+      url,
+    }
+  })
   // Sort by date, newest first
   .sort((a, b) => {
     const dateA = new Date(a.publishDate || 0)
