@@ -1,0 +1,6 @@
+[[redirects]]
+  # Redirect Netlify subdomain to custom domain
+  from = "https://nice-tat.netlify.app/*"
+  to = "https://nicetat.samcarlton.com/:splat"
+  status = 301
+  force = true
