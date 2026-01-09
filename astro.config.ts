@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
-import { beastiesIntegration } from './src/integrations/beasties';
+// import { beastiesIntegration } from './src/integrations/beasties';
 
 // Custom domain - used for production builds
 const DEFAULT_SITE = 'https://nicetat.samcarlton.com';
@@ -64,8 +64,15 @@ export default defineConfig({
     sitemap(),
     // MDX support for blog posts with components
     mdx(),
-    // Inline critical CSS, lazy-load the rest
-    // https://github.com/danielroe/beasties
-    beastiesIntegration({ preload: 'swap' }),
-  ],
+    /**
+     * Optional integration for critical CSS inlining
+     * for even better lighthouse scores. 
+     * 
+     * Can mess up page transitions and other style 
+     * things so use with caution. 
+     *
+     * @see https://github.com/danielroe/beasties
+     */
+    // beastiesIntegration({ preload: 'swap' }),
+  ]
 });
